@@ -32,6 +32,9 @@ class GbBlogParser:
             except aiohttp.ServerDisconnectedError:
                 await asyncio.sleep(0.3)
                 continue
+            except aiohttp.ClientPayloadError:
+                await asyncio.sleep(0.3)
+                continue
         return soap
 
     async def parse(self, url=start_url):
