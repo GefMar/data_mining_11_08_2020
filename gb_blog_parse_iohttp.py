@@ -20,14 +20,18 @@ class GbBlogParser:
         while True:
             # с таймингом можно играть, но вас забанят сразу если убрать этот sleep()
             await asyncio.sleep(random.randint(1, 5) / random.randint(1, 3))
-            async with aiohttp.ClientSession(timeout=self.timeout) as session:
-                async with session.get(url) as response:
-                    if response.status == 200:
-                        soap = BeautifulSoup(await response.text(), 'lxml')
-                        break
-                    elif response.status >= 500:
-                        await asyncio.sleep(1.3)
-                        continue
+            try:
+                async with aiohttp.ClientSession(timeout=self.timeout) as session:
+                    async with session.get(url) as response:
+                        if response.status == 200:
+                            soap = BeautifulSoup(await response.text(), 'lxml')
+                            break
+                        elif response.status >= 500:
+                            await asyncio.sleep(1.3)
+                            continue
+            except aiohttp.ServerDisconnectedError:
+                await asyncio.sleep(1.3)
+                continue
         return soap
 
     async def parse(self, url=start_url):
