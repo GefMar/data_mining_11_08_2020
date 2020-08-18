@@ -18,6 +18,7 @@ class GbBlogParser:
 
     async def request(self, url) -> BeautifulSoup:
         while True:
+            # с таймингом можно играть, но вас забанят сразу если убрать этот sleep()
             await asyncio.sleep(random.randint(1, 5) / random.randint(1, 3))
             async with aiohttp.ClientSession(timeout=self.timeout) as session:
                 async with session.get(url) as response:
