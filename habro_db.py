@@ -1,10 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from habro_models import Base, Post, Writer
+from habro_models import Base
 
 
 class HabroDB:
+
     def __init__(self, bd_link):
         engine = create_engine(bd_link)
         Base.metadata.create_all(engine)
@@ -13,7 +14,8 @@ class HabroDB:
     def get_session(self) -> Session:
         return self.__session_db()
 
-    def get_or_update(self, session, model):
+    @staticmethod
+    def get_or_update(session, model):
         try:
             session.add(model)
             session.commit()
@@ -26,6 +28,7 @@ class HabroDB:
         session = self.get_session()
         post_obj.writer = self.get_or_update(session, post_obj.writer)
         post_obj.tag = [self.get_or_update(session, itm) for itm in post_obj.tag]
+
         try:
             session.add(post_obj)
             session.commit()
@@ -33,4 +36,3 @@ class HabroDB:
             print(e)
         finally:
             session.close()
-

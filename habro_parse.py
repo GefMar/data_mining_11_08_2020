@@ -109,10 +109,6 @@ class HabrParser:
     def get_habs(self, soap: BeautifulSoup):
         pass
 
-    async def save_to_mongo(self, data: dict):
-        print(data)
-        self.collection.insert_one(data)
-
 
 if __name__ == '__main__':
     db = HabroDB('sqlite:///habro_blog.db')
