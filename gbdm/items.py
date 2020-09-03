@@ -59,3 +59,17 @@ class YoulaAdsAutoItem(scrapy.Item):
     specifications = scrapy.Field()
     descriptions = scrapy.Field()
     author_url = scrapy.Field()
+
+
+class InstaHashTagItem(scrapy.Item):
+    _id = scrapy.Field()
+    data = scrapy.Field()
+
+
+class InstaPostItem(scrapy.Item):
+    _id = scrapy.Field()
+    data = scrapy.Field()
+
+class InstaUserItem(scrapy.Item):
+    _id = scrapy.Field()
+    data = scrapy.Field()
