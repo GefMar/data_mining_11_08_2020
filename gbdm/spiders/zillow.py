@@ -31,6 +31,7 @@ class ZillowSpider(scrapy.Spider):
         for adv_url in response.xpath(self.__xpath['adv']):
             yield response.follow(adv_url, callback=self.adv_parse)
 
+
     def adv_parse(self, response):
         self.browser.get(response.url)
         images_len = len(self.browser.find_elements_by_xpath(self.__xpath['images_source']))
