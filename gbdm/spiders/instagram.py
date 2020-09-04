@@ -41,7 +41,7 @@ class InstagramSpider(scrapy.Spider):
         js_data = self.get_js_shared_data(response)
         hashtag: dict = js_data['entry_data']['TagPage'][0]['graphql']['hashtag']
 
-        #todo блок дублируется, и его надо бы вынести в метод
+        # todo блок дублируется, и его надо бы вынести в метод
         if hashtag['edge_hashtag_to_media']['page_info']['has_next_page']:
             variables = {"tag_name": hashtag['name'],
                          "first": 50,
